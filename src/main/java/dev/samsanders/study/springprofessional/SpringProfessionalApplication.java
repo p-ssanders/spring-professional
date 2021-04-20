@@ -1,5 +1,6 @@
 package dev.samsanders.study.springprofessional;
 
+import dev.samsanders.study.springprofessional.app.ExampleLifecycleBean;
 import dev.samsanders.study.springprofessional.app.ExamplePrototypeBean;
 import dev.samsanders.study.springprofessional.app.ExampleSingletonBean;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +25,11 @@ public class SpringProfessionalApplication {
 	@Scope("prototype")
 	ExamplePrototypeBean examplePrototypeBean() {
 		return new ExamplePrototypeBean();
+	}
+
+	@Bean(initMethod = "init", destroyMethod = "destroy")
+	ExampleLifecycleBean exampleLifecycleBean() {
+		return new ExampleLifecycleBean();
 	}
 
 }
