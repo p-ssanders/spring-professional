@@ -1,18 +1,23 @@
 package dev.samsanders.study.springprofessional;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class SpringProfessionalApplicationTests {
 
     @Autowired
     ApplicationContext applicationContext;
+
+    @Autowired
+    BeanFactory beanFactory;
 
     @Test
     void contextLoads() {
@@ -35,4 +40,13 @@ class SpringProfessionalApplicationTests {
         assertNotSame(examplePrototypeBean1, examplePrototypeBean2);
     }
 
+    @Test
+    void exampleBeanFactoryPostProcessor_modifiesBeanMetadata() {
+        assertTrue(beanFactory instanceof ConfigurableListableBeanFactory);
+        BeanDefinition exampleSingletonBeanDefinition = ((ConfigurableListableBeanFactory) beanFactory).getBeanDefinition("exampleSingletonBean");
+
+        String actual = (String) exampleSingletonBeanDefinition.getAttribute("some-attribute");
+
+        assertEquals("some-value", actual);
+    }
 }
