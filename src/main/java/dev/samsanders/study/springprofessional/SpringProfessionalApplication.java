@@ -1,8 +1,6 @@
 package dev.samsanders.study.springprofessional;
 
-import dev.samsanders.study.springprofessional.app.ExampleLifecycleBean;
-import dev.samsanders.study.springprofessional.app.ExamplePrototypeBean;
-import dev.samsanders.study.springprofessional.app.ExampleSingletonBean;
+import dev.samsanders.study.springprofessional.app.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +28,16 @@ public class SpringProfessionalApplication {
 	@Bean(initMethod = "init", destroyMethod = "destroy")
 	ExampleLifecycleBean exampleLifecycleBean() {
 		return new ExampleLifecycleBean();
+	}
+
+	@Bean
+	ExampleBeanPostProcessor exampleBeanPostProcessor() {
+		return new ExampleBeanPostProcessor();
+	}
+
+	@Bean
+	static ExampleBeanFactoryPostProcessor exampleBeanFactoryPostProcessor() {
+		return new ExampleBeanFactoryPostProcessor();
 	}
 
 }

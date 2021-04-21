@@ -8,11 +8,11 @@ public class ExampleLifecycleBean {
     private static final Logger logger = LoggerFactory.getLogger(ExampleLifecycleBean.class);
 
     void init() {
-        logger.info("initializing");
+        logger.debug("initializing");
     }
 
     void destroy() {
-        logger.info("destroying");
+        logger.debug("destroying");
     }
 
 }

@@ -15,6 +15,11 @@ class SpringProfessionalApplicationTests {
     ApplicationContext applicationContext;
 
     @Test
+    void contextLoads() {
+
+    }
+
+    @Test
     void exampleSingletonBeanIsSingleton() {
         Object exampleSingletonBean1 = applicationContext.getBean("exampleSingletonBean");
         Object exampleSingletonBean2 = applicationContext.getBean("exampleSingletonBean");
