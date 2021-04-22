@@ -1,6 +1,7 @@
 package dev.samsanders.study.springprofessional;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import dev.samsanders.study.springprofessional.app.ExampleBeanFactoryPostProcessor;
 import dev.samsanders.study.springprofessional.app.ExampleBeanPostProcessor;
@@ -40,8 +41,13 @@ public class SpringProfessionalApplication {
 	}
 
 	@Bean
-	ExampleBeanPostProcessor exampleBeanPostProcessor() {
-		return new ExampleBeanPostProcessor();
+	ExampleBeanPostProcessor exampleBeanPostProcessor(AtomicInteger beanPostProcessorInvocationCounter) {
+		return new ExampleBeanPostProcessor(beanPostProcessorInvocationCounter);
+	}
+
+	@Bean
+	AtomicInteger beanPostProcessorInvocationCounter() {
+		return new AtomicInteger();
 	}
 
 	@Bean

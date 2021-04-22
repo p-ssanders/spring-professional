@@ -1,7 +1,9 @@
 package dev.samsanders.study.springprofessional;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,14 @@ class SpringProfessionalApplicationTests {
 
         applicationContext.getBean("exampleLazyInitializedBean");
         assertEquals(0, countDownLatch.getCount());
+    }
+
+    @Test
+    @Disabled
+    void exampleBeanPostProcessor_postProcessesBeforeAndAfterInitialization() {
+        AtomicInteger beanPostProcessorInvocationCounter = (AtomicInteger) applicationContext.getBean("beanPostProcessorInvocationCounter");
+        // FIXME Expected 158, Actual 110 -- why?
+        assertEquals(applicationContext.getBeanDefinitionCount() * 2, beanPostProcessorInvocationCounter.get());
     }
 
     @Test
