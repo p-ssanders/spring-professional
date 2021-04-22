@@ -1,5 +1,7 @@
 package dev.samsanders.study.springprofessional;
 
+import java.util.concurrent.CountDownLatch;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,15 @@ class SpringProfessionalApplicationTests {
         Object examplePrototypeBean2 = applicationContext.getBean("examplePrototypeBean");
 
         assertNotSame(examplePrototypeBean1, examplePrototypeBean2);
+    }
+
+    @Test
+    void lazyBeanIsLazilyInstantiated() {
+        CountDownLatch countDownLatch = (CountDownLatch) applicationContext.getBean("countDownLatchForLazyBean");
+        assertEquals(1, countDownLatch.getCount());
+
+        applicationContext.getBean("exampleLazyInitializedBean");
+        assertEquals(0, countDownLatch.getCount());
     }
 
     @Test

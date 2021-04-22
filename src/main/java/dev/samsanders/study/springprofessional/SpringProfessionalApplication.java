@@ -1,9 +1,18 @@
 package dev.samsanders.study.springprofessional;
 
-import dev.samsanders.study.springprofessional.app.*;
+import java.util.concurrent.CountDownLatch;
+
+import dev.samsanders.study.springprofessional.app.ExampleBeanFactoryPostProcessor;
+import dev.samsanders.study.springprofessional.app.ExampleBeanPostProcessor;
+import dev.samsanders.study.springprofessional.app.ExampleLazyInitializedBean;
+import dev.samsanders.study.springprofessional.app.ExampleLifecycleBean;
+import dev.samsanders.study.springprofessional.app.ExamplePrototypeBean;
+import dev.samsanders.study.springprofessional.app.ExampleSingletonBean;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 @SpringBootApplication
@@ -38,6 +47,17 @@ public class SpringProfessionalApplication {
 	@Bean
 	static ExampleBeanFactoryPostProcessor exampleBeanFactoryPostProcessor() {
 		return new ExampleBeanFactoryPostProcessor();
+	}
+
+	@Bean(initMethod = "init")
+	@Lazy
+	ExampleLazyInitializedBean exampleLazyInitializedBean(CountDownLatch countDownLatchForLazyBean) {
+		return new ExampleLazyInitializedBean(countDownLatchForLazyBean);
+	}
+
+	@Bean
+	CountDownLatch countDownLatchForLazyBean() {
+		return new CountDownLatch(1);
 	}
 
 }
