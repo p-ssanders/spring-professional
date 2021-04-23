@@ -1,12 +1,10 @@
 package dev.samsanders.study.springprofessional.app;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.Ordered;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExampleBeanPostProcessor implements BeanPostProcessor, Ordered {
 

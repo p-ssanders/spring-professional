@@ -1,20 +1,15 @@
 package dev.samsanders.study.springprofessional;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import dev.samsanders.study.springprofessional.app.ExampleBeanFactoryPostProcessor;
-import dev.samsanders.study.springprofessional.app.ExampleBeanPostProcessor;
-import dev.samsanders.study.springprofessional.app.ExampleLazyInitializedBean;
-import dev.samsanders.study.springprofessional.app.ExampleLifecycleBean;
-import dev.samsanders.study.springprofessional.app.ExamplePrototypeBean;
-import dev.samsanders.study.springprofessional.app.ExampleSingletonBean;
-
+import dev.samsanders.study.springprofessional.app.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootApplication
 public class SpringProfessionalApplication {
@@ -57,13 +52,18 @@ public class SpringProfessionalApplication {
 
 	@Bean(initMethod = "init")
 	@Lazy
-	ExampleLazyInitializedBean exampleLazyInitializedBean(CountDownLatch countDownLatchForLazyBean) {
-		return new ExampleLazyInitializedBean(countDownLatchForLazyBean);
+	ExampleLazyInitializedBean exampleLazyInitializedBean(CountDownLatch countDownLatchForExampleLazyBean) {
+		return new ExampleLazyInitializedBean(countDownLatchForExampleLazyBean);
 	}
 
 	@Bean
-	CountDownLatch countDownLatchForLazyBean() {
+	CountDownLatch countDownLatchForExampleLazyBean() {
 		return new CountDownLatch(1);
+	}
+
+	@Bean
+	ExampleService exampleService(@Value("${example-service.example-value:defaultValue}") String exampleValue) {
+		return new ExampleService(exampleValue);
 	}
 
 }

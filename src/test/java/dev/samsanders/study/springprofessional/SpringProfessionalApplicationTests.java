@@ -1,8 +1,6 @@
 package dev.samsanders.study.springprofessional;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicInteger;
-
+import dev.samsanders.study.springprofessional.app.ExampleService;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
@@ -11,6 +9,9 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +30,7 @@ class SpringProfessionalApplicationTests {
     }
 
     @Test
-    void exampleSingletonBeanIsSingleton() {
+    void exampleSingletonBean_isSingleton() {
         Object exampleSingletonBean1 = applicationContext.getBean("exampleSingletonBean");
         Object exampleSingletonBean2 = applicationContext.getBean("exampleSingletonBean");
 
@@ -37,7 +38,7 @@ class SpringProfessionalApplicationTests {
     }
 
     @Test
-    void examplePrototypeBeanIsPrototype() {
+    void examplePrototypeBean_isPrototype() {
         Object examplePrototypeBean1 = applicationContext.getBean("examplePrototypeBean");
         Object examplePrototypeBean2 = applicationContext.getBean("examplePrototypeBean");
 
@@ -45,8 +46,8 @@ class SpringProfessionalApplicationTests {
     }
 
     @Test
-    void lazyBeanIsLazilyInstantiated() {
-        CountDownLatch countDownLatch = (CountDownLatch) applicationContext.getBean("countDownLatchForLazyBean");
+    void exampleLazyBean_isLazilyInstantiated() {
+        CountDownLatch countDownLatch = (CountDownLatch) applicationContext.getBean("countDownLatchForExampleLazyBean");
         assertEquals(1, countDownLatch.getCount());
 
         applicationContext.getBean("exampleLazyInitializedBean");
@@ -70,4 +71,12 @@ class SpringProfessionalApplicationTests {
 
         assertEquals("some-value", actual);
     }
+
+    @Test
+    void exampleService_hasDefaultValueInjected() {
+        ExampleService exampleService = (ExampleService) applicationContext.getBean("exampleService");
+
+        assertEquals("defaultValue", exampleService.getExampleValue());
+    }
+
 }
