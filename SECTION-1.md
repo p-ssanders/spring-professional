@@ -52,7 +52,8 @@
 
 *   What is a property source? How would you use @PropertySource?
 
-    *TODO*
+    A property source is any source of key-value pairs e.g.: operating system environment variables, a .properties file,
+    etc.
 
 *   What is a BeanFactoryPostProcessor and what is it used for? When is it invoked?
 
@@ -88,8 +89,14 @@
     providing the bean name as the value of the @Qualifier annotation.
 
 *   What is a proxy object and what are the two different types of proxies Spring can create?
-    
-    *TODO*
+
+    A proxy object is a bean wrapped by another object (decorator) that exposes the same public interface as the bean,
+    and can retrieve the bean from the relevant scope to delegate method calls to the bean. The use is mostly for
+    inter-bean dependencies where the dependent bean has a shorter-term scope than the depending bean.
+
+    The types are CGLIB dynamic proxies (default), and standard JDK interface-based proxies.
+
+    ref: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-other-injection-proxies
 
 *   What does the @Bean annotation do?
 
@@ -132,9 +139,24 @@
     `@Value`
 
 *   What is Spring Expression Language (SpEL for short)?
+
+    SpEL is an "expression language" that is used for querying and manipulating object graphs at runtime.
+
+    ref: https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#expressions
+
 *   What is the Environment abstraction in Spring?
+
+    The Environment abstraction is basically an interface that represents the environment in which the application is
+    running. It provides an API for Profiles and Properties.
+
 *   Where can properties in the environment come from – there are many sources for properties – check the documentation if not sure. Spring Boot adds even more.
+
+    JVM system properties, operating system environment variables, properties files..
+
 *   What can you reference using SpEL?
+
+    wut?
+
 *   What is the difference between $ and # in @Value expressions?
 
     `$` is used to indicate a that the value can be obtained from a property source, meaning the annotation value is a key
