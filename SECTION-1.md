@@ -1,4 +1,4 @@
-#   Section 1-1 – Container, Dependency and IOC
+#   Section 1 – Container, Dependency and IOC
 
 *   What is dependency injection and what are the advantages of using it?
 
