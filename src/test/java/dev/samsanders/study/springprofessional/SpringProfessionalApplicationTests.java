@@ -153,9 +153,9 @@ class SpringProfessionalApplicationTests {
 	}
 
 	@Test
-	void transactionPropagationRequired() {
+	void transactionPropagation_requiresNew() {
 		assertThrows(DataAccessException.class, () -> exampleDomainService
-				.brokenCreateExampleDomainObject(new ExampleDomainObject(0, "some-content", Instant.MIN)));
+				.txnPropagationRequiresNew(new ExampleDomainObject(0, "some-content", Instant.MIN)));
 	}
 
 }

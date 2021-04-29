@@ -1,5 +1,6 @@
 package dev.samsanders.study.springprofessional.data;
 
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 public class ExampleDomainService {
@@ -10,9 +11,9 @@ public class ExampleDomainService {
 		this.exampleDomainObjectRepository = exampleDomainObjectRepository;
 	}
 
-	@Transactional
-	public ExampleDomainObject brokenCreateExampleDomainObject(ExampleDomainObject exampleDomainObject) {
-		return exampleDomainObjectRepository.saveBroken(exampleDomainObject);
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public ExampleDomainObject txnPropagationRequiresNew(ExampleDomainObject exampleDomainObject) {
+		return exampleDomainObjectRepository.doBadSql(exampleDomainObject);
 	}
 
 }
