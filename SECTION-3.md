@@ -106,11 +106,15 @@ inside a same object instance?
 
 *   What is the default rollback policy? How can you override it?
 
-    By default rollback is automatic only on unchecked exceptions. This can be overridden by *TODO*
+    By default rollback is automatic only on unchecked exceptions. This can be overridden by creating advice for specifc
+    checked exceptions that should trigger a rollback.
+    ref: https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#transaction-declarative-rolling-back
 
-*   What is the default rollback policy in a JUnit test, when you use the @
-RunWith(SpringJUnit4ClassRunner.class) in JUnit 4 or @ExtendWith(SpringExtension. class) in JUnit 5, and
-annotate your @Test annotated method with @Transactional?
+*   What is the default rollback policy in a JUnit test, when you use the @RunWith(SpringJUnit4ClassRunner.class) in
+    JUnit 4 or @ExtendWith(SpringExtension. class) in JUnit 5, and annotate your @Test annotated method with
+    @Transactional?
+
+    The transaction rolls back.
 
 *   Are you able to participate in a given transaction in Spring while working with JPA?
 
@@ -118,4 +122,16 @@ annotate your @Test annotated method with @Transactional?
 
 *   Which PlatformTransactionManager(s) can you use with JPA?
 
+    https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/orm/jpa/JpaTransactionManager.html
+
 *   What do you have to configure to use JPA with Spring? How does Spring Boot make this easier?
+
+    *   Using LocalEntityManagerFactoryBean
+    *   Obtaining an EntityManagerFactory from JNDI
+    *   Using LocalContainerEntityManagerFactoryBean
+    ref: https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#orm-jpa-setup
+
+    The above guides developers on how to access an EntityManager, which they should use for writing code to run queries
+    and process results. Spring Boot makes all of this easier by providing a higher level abstraction by creating
+    Repository implementations based on interfaces defined by developers, and using conventions to generate queries from
+    method names.
