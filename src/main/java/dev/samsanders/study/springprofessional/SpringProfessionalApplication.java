@@ -19,6 +19,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @SpringBootApplication
 public class SpringProfessionalApplication {
@@ -78,6 +83,21 @@ public class SpringProfessionalApplication {
 	@Bean
 	ExampleDomainService exampleDomainService(ExampleDomainObjectRepository exampleDomainObjectRepository) {
 		return new ExampleDomainService(exampleDomainObjectRepository);
+	}
+
+	@Bean
+	ExampleDomainObjectRepository exampleDomainObjectRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+		return new ExampleDomainObjectRepository(jdbcTemplate);
+	}
+
+	@ControllerAdvice
+	static class RestApiControllerAdvice {
+
+		@ExceptionHandler
+		ResponseEntity<Void> defaultExceptionHandler(Exception e) {
+			return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+		}
+
 	}
 
 }
