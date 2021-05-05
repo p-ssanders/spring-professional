@@ -17,11 +17,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -98,6 +102,21 @@ public class SpringProfessionalApplication {
 			return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
 		}
 
+	}
+
+	@Configuration
+	@EnableWebSecurity
+	static class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http
+					.authorizeRequests()
+					.mvcMatchers("/example-resources/**").permitAll()
+					.anyRequest().hasAnyRole("SOME_ROLE")
+					.and()
+					.csrf().disable();
+		}
 	}
 
 }

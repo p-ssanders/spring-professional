@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -47,7 +46,7 @@ public class ExampleController {
 		threadPoolTaskExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				IntStream.range(0,3).forEach(x -> {
+				IntStream.range(0, 3).forEach(x -> {
 					try {
 						sseEmitter.send("test " + x);
 						Thread.sleep(2000);
@@ -61,6 +60,11 @@ public class ExampleController {
 		});
 
 		return sseEmitter;
+	}
+
+	@GetMapping("/secured-resource")
+	public ResponseEntity<Void> securedHandler() {
+		return ResponseEntity.ok().build();
 	}
 
 }
