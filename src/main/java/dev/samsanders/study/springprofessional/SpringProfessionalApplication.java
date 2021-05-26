@@ -113,6 +113,7 @@ public class SpringProfessionalApplication {
 			http
 					.authorizeRequests()
 					.mvcMatchers("/example-resources/**").permitAll()
+					.mvcMatchers("/actuator/**").permitAll()
 					.anyRequest().hasAnyRole("SOME_ROLE")
 					.and()
 					.csrf().disable();
